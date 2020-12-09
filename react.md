@@ -668,7 +668,82 @@ ReactDOM.render(
 
 `isLiked` 存放在實例的 `state` 對象當中，組件的 `render` 函數內，會根據組件的 `state` 的中`的isLiked`不同顯示“取消”或“收藏”內容。下面給 `button` 加上了點擊的事件監聽。
 
+```text
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      name: 'React',
+      isLiked: false
+    }
+  }
+  handleBtnClick = () => {
+    this.setState({
+      isLiked: !this.state.isLiked
+    })
+  }
+  render () {
+    return (
+      <div>
+        <h1>到{this.state.name}的世界</h1>
+        <button onClick={this.handleBtnClick}>
+          {
+            this.state.isLiked ? '取消' : '收藏'
+          }
+        </button>
+      </div>
+  	)
+  }
+}
+ReactDOM.render(
+	<App/>,
+  document.getElementById('root')
+)
+```
 
 
 
+`setState`有两个参数
+
+第一个参数可以是物件，也可以是方法return一個物件，我們把這個參數叫做`updater`
+
+* 參數是物件
+
+  ```text
+  this.setState({
+    isLiked: !this.state.isLiked
+  })
+  ```
+
+* 參數是方法
+
+  ```text
+  this.setState((prevState, props) => {
+    return {
+      isLiked: !prevState.isLiked
+    }
+  })
+  ```
+
+  注意的是這個方法接收兩個參數，第一个是上一次的state，第二個是props
+
+`setState`是異步的，所以想要獲取到最新的state，没有辦法獲取，就有了第二個參數，這是一個可選的回調函數
+
+```text
+this.setState((prevState, props) => {
+  return {
+    isLiked: !prevState.isLiked
+  }
+}, () => {
+  console.log('回裡的',this.state.isLiked)
+})
+console.log('setState外部的',this.state.isLiked)
+```
+
+###  3、屬性vs狀態
+
+相似點：都是純js物件，都會觸發render更新，都具有確定性（狀態/屬性相同，結果相同）
 
