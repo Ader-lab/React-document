@@ -92,9 +92,9 @@ Happy hacking!
 
 React起源於Facebook的內部項目，因為該公司對市場上所有JavaScript MVC框架，都不滿意，就決定自己寫一套，用作架設Instagram的網站。做出來以後，發現這套東西很好用，就在2013年5月開源了。
 
-### **2、React與傳統MVC的關係 輕量級的視圖層庫！** 
+### **2、React與傳統MVC的關係** 
 
-A JavaScript library for building user interfaces React不是一個完整的MVC框架，最多可以認為是MVC中的V（View），甚至React並不非常認可MVC開發模式；React 構建頁面 UI 的庫。可以簡單地理解為，React 將界面分成了各個獨立的小塊，每一個塊就是組件，這些組件之間可以組合、嵌套，就成了我們的頁面。
+React不是一個完整的MVC框架，最多可以認為是MVC中的V（View），甚至React並不非常認可MVC開發模式；React 構建頁面 UI 的庫。可以簡單地理解為，React 將界面分成了各個獨立的小塊，每一個塊就是組件，這些組件之間可以組合、嵌套，就成了我們的頁面。
 
 ### 3、React高性能的體現：虛擬DOM 
 
@@ -138,9 +138,7 @@ react最核心的思想是將頁面中任何一個區域或者元素都可以看
 
 ## 三、編寫第一個react應用程序 
 
-react開發需要引入多個依賴文件：react.js、react-dom.js，分別又有開發版本和生產版本，create-react-app裡已經幫我們把這些東西都安裝好了。把通過CRA創建的工程目錄下的src目錄清空，然後在裡面重新創建一個index.js. 寫入以下代碼:
-
-
+react開發需要引入多個依賴文件：react.js、react-dom.js，分別又有開發版本和生產版本，create-react-app裡已經幫我們把這些東西都安裝好了。然後打開 index.js. 檔案
 
 ```text
 // 從 react 的包當中引入了 React。只要你要寫 React.js 組件就必須引入React, 因為react裡有一種語法叫JSX
@@ -596,5 +594,7 @@ $ npm i prop-types
 
 ###  2、狀態\(state\)
 
-狀態就是組件描述某種顯示情況的數據，由組件自己設置和更改，也就是說由組件自己維護，使用狀態的目的就是為了在不同的狀態下使組件的顯示不同\(自己管理\)
+狀態就是組件描述某種顯示情況的數據，由組件自己設置和更改，也就是說由組件自己維護，使用狀態的目的就是為了在不同的狀態下使組件的顯示不同\(自己管理\)aaaa
+
+
 
