@@ -32,7 +32,7 @@ $ npx create-react-app your-app
 這個過程實際上會安裝這三樣東西: 
 
 * react: react的library
-* react-dom: 因为react有很多的運行環境，比如app端的react-native，我们要在web上运行就使用react-dom
+* react-dom: 因为react有很多的運行環境，比如app端的react-native，我们要在web上運行就使用react-dom
 * react-scripts: 包含執行和打包react應用程序的所有脚本及配置
 
 出現下面的界面，表示創建項目成功:
