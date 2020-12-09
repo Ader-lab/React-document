@@ -554,7 +554,7 @@ import ReactDOM from 'react-dom'
 class Title extends Component {
   render () {
     return (
-  		<h1>欢迎进入{this.props.children}的世界</h1>
+  		<h1>入{this.props.children}的世界</h1>
   	)
   }
 }
@@ -595,6 +595,10 @@ $ npm i prop-types
 ###  2、狀態\(state\)
 
 狀態就是組件描述某種顯示情況的數據，由組件自己設置和更改，也就是說由組件自己維護，使用狀態的目的就是為了在不同的狀態下使組件的顯示不同\(自己管理\)
+
+\*\*\*
+
+
 
 
 
