@@ -594,9 +594,75 @@ $ npm i prop-types
 
 ###  2、狀態\(state\)
 
-狀態就是組件描述某種顯示情況的數據，由組件自己設置和更改，也就是說由組件自己維護，使用狀態的目的就是為了在不同的狀態下使組件的顯示不同\(自己管理\)
+狀態就是組件描述某種顯示情況的數據，由組件自己設置和更改，也就是說由組件自己維護，使用狀態的目的就是為了在不同的狀態下使組件的顯示不同\(自己管理\)。
 
-\*\*\*
+  
+\(1\) 定義state
+
+第一種方式
+
+```text
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends Component {
+  state = {
+    name: 'React',
+    isLiked: false
+  }
+  render () {
+    return (
+      <div>
+        <h1>欢迎到{this.state.name}的世界</h1>
+        <button>
+          {
+            this.state.isLiked ? '取消' : '收藏'
+          }
+        </button>
+      </div>
+  	)
+  }
+}
+ReactDOM.render(
+	<App/>,
+  document.getElementById('root')
+)
+```
+
+另一种方式\(推荐\)
+
+
+
+```text
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      name: 'React',
+      isLiked: false
+    }
+  }
+  render () {
+    return (
+  		<div>
+        <h1>欢迎到{this.state.name}的世界</h1>
+        <button>
+          {
+            this.state.isLiked ? '取消' : '收藏'
+          }
+        </button>
+      </div>
+  	)
+  }
+}
+ReactDOM.render(
+  <App/>,
+  document.getElementById('root')
+)
+```
 
 
 
