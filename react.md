@@ -801,7 +801,7 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 
 ### 1、绑定事件
 
-採用on+事件名的方式來綁定一個事件，注意，這里和原生的事件是有區別的，原生的事件全是小寫`onclick`，React裡的事件是駝峰`onClick`，React的事件並不是原生事件，而是合成事件。
+採用on+事件名的方式來綁定一個事件，注意，這里和原生的事件是有區別的，原生的事件全是小寫`onclick`，React裡的事件是駝峰`onClick`，React的事件並不是原生事件，而是[`合成事件`](https://www.fooish.com/reactjs/handling-events.html)。
 
 ###  2、事件handler的寫法
 
