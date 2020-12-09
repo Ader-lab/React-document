@@ -930,7 +930,7 @@ class EssayForm extends React.Component {
 
 請注意，`this.state.value` 初始化於構造函數中，因此文本區域默認有初值。
 
-###  3、select 標籤
+### 3、select 標籤
 
 在 HTML 中， 創建下拉列表標籤。例如，如下 HTML 創建了水果相關的下拉列表：
 
