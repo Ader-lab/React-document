@@ -812,5 +812,5 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 
 ### 3、Event 物件
 
-和普通瀏覽器一樣，事件handler會被自動傳入一個 `event` 物件，這個物件和普通的瀏覽器 `event` 物件所包含的方法和屬性都基本一致。不同的是 React中的 `event` 物件並不是瀏覽器提供的，而是它自己內部所構建的。它同樣具有`event.stopPropagation`、`event.preventDefault` 這種常用的方法
+和普通瀏覽器一樣，事件handler會被自動傳入一個 `event` 物件，這個物件和普通的瀏覽器 `event` 物件所包含的方法和屬性都基本一致。不同的是 React中的 `event` 物件並不是瀏覽器提供的，而是它自己內部所構建的。它同樣具有`event.stopPropagation`、`event.preventDefault` 這種常用的方法。
 
