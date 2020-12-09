@@ -824,8 +824,6 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 
 在React裡，HTML表單元素的工作方式和其他的DOM元素有些不同，這是因為表單元素通常會保持一些內部的狀態。例如這個純HTML表單只接受一個名稱：
 
-
-
 ```text
 <form>
   <label>
@@ -944,8 +942,6 @@ class EssayForm extends React.Component {
   <option value="mango">芒果</option>
 </select>
 ```
-
-
 
 請注意，由於 `selected` 屬性的緣故，椰子選項默認被選中。 React 並不會使用 `selected` 屬性，而是在根 `select` 標籤上使用 `value` 屬性。這在受控組件中更便捷，因為您只需要在根標籤中更新它。例如：
 
