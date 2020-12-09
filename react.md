@@ -631,8 +631,6 @@ ReactDOM.render(
 
 另一种方式\(推荐\)
 
-
-
 ```text
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
@@ -663,6 +661,12 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+
+`this.props`和`this.state`是純js，如果直接更改的話，react是無法得知的，所以，需要使用特殊的更改狀態的方法setState。
+
+#### \(2\) setState
+
+`isLiked` 存放在實例的 `state` 對象當中，組件的 `render` 函數內，會根據組件的 `state` 的中`的isLiked`不同顯示“取消”或“收藏”內容。下面給 `button` 加上了點擊的事件監聽。
 
 
 
