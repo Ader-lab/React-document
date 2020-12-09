@@ -666,7 +666,7 @@ ReactDOM.render(
 
 #### \(2\) setState
 
-`isLiked` 存放在實例的 `state` 對象當中，組件的 `render` 函數內，會根據組件的 `state` 的中`的isLiked`不同顯示“取消”或“收藏”內容。下面給 `button` 加上了點擊的事件監聽。
+`isLiked` 存放在實例的 `state` 物件當中，組件的 `render` 函數內，會根據組件的 `state` 的中`的isLiked`不同顯示“取消”或“收藏”內容。下面給 `button` 加上了點擊的事件監聽。
 
 ```text
 import React, { Component } from 'react'
@@ -745,5 +745,72 @@ console.log('setState外部的',this.state.isLiked)
 
 ###  3、屬性vs狀態
 
-相似點：都是純js物件，都會觸發render更新，都具有確定性（狀態/屬性相同，結果相同）
+相似點：都是純js物件，都會觸發render更新。
+
+`state` 的主要作用是用於組件保存、控制、修改自己的可變狀態。 `state` 在組件內部初始化，可以被組件自身修改，而外部不能訪問也不能修改。你可以認為 `state` 是一個局部的、只能被組件自身控制的資料源。 `state` 中狀態可以通過 `this.setState`方法進行更新，`setState` 會導致組件的重新渲染。
+
+`props` 的主要作用是讓使用該組件的父組件可以傳入參數來配置該組件。它是外部傳進來的配置參數，組件內部無法控制也無法修改。除非外部組件主動傳入新的 `props`，否則組件的 `props` 永遠保持不變。
+
+###  4、狀態提升
+
+如果有多個組件共享一個資料，把這個資料放到共同的父級組件中來管理，例如:登入狀態。
+
+###  5、受控组件與非受控组件
+
+React組件的資料渲染是否被調用者傳遞的`props`完全控制，控制則為受控組件，否則非受控組件。
+
+###  6、渲染資料
+
+* 條件渲染
+
+  ```text
+  {
+    condition ? '取消' : '收藏'
+  }
+  ```
+
+* 列表渲染
+
+```text
+// 
+const people = [{
+  id: 1,
+  name: 'Leo',
+  age: 35
+}, {
+  id: 2,
+  name: 'James',
+  age: 16
+}]
+// 渲染列表
+{
+  people.map(person => {
+    return (
+      <dl key={person.id}>
+        <dt>{person.name}</dt>
+        <dd>age: {person.age}</dd>
+      </dl>
+    )
+  })
+}
+```
+
+React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表元素來說會有一個問題：元素可能會在一個列表中改變位置。要實現這個操作，只需要交換一下DOM 位置就行了，但是React並不知道其實我們只是改變了元素的位置，所以它會重新渲染後面兩個元素（再執行Virtual-DOM ），這樣會大大增加DOM操作。但如果給每個元素加上唯一的標識，React 就可以知道這兩個元素只是交換了位置，這個標識就是key，這個 key 必須是每個元素唯一的標識
+
+##  八、事件處理
+
+### 1、绑定事件
+
+採用on+事件名的方式來綁定一個事件，注意，這里和原生的事件是有區別的，原生的事件全是小寫`onclick`，React裡的事件是駝峰`onClick`，React的事件並不是原生事件，而是合成事件。
+
+###  2、事件handler的写法
+
+* 直接在render裡寫行内的箭頭函式\(不推薦\)
+* 在组件内使用箭頭函式定義一個方法\(推薦\)
+* 直接在组件内定義一个非箭頭函式的方法，然后在render裡直接使用`onClick={this.handleClick.bind(this)}`\(不推薦\)
+* 直接在组件内定义一个非箭頭函式的方法，然后在constructor里bind\(this\)\(推薦\)
+
+### 3、Event 物件
+
+和普通瀏覽器一樣，事件handler會被自動傳入一個 `event` 物件，這個物件和普通的瀏覽器 `event` 物件所包含的方法和屬性都基本一致。不同的是 React中的 `event` 物件並不是瀏覽器提供的，而是它自己內部所構建的。它同樣具有`event.stopPropagation`、`event.preventDefault` 這種常用的方法
 
