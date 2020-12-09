@@ -803,7 +803,7 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 
 採用on+事件名的方式來綁定一個事件，注意，這里和原生的事件是有區別的，原生的事件全是小寫`onclick`，React裡的事件是駝峰`onClick`，React的事件並不是原生事件，而是合成事件。
 
-###  2、事件handler的写法
+###  2、事件handler的寫法
 
 * 直接在render裡寫行内的箭頭函式\(不推薦\)
 * 在组件内使用箭頭函式定義一個方法\(推薦\)
@@ -813,4 +813,6 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 ### 3、Event 物件
 
 和普通瀏覽器一樣，事件handler會被自動傳入一個 `event` 物件，這個物件和普通的瀏覽器 `event` 物件所包含的方法和屬性都基本一致。不同的是 React中的 `event` 物件並不是瀏覽器提供的，而是它自己內部所構建的。它同樣具有`event.stopPropagation`、`event.preventDefault` 這種常用的方法。
+
+
 
