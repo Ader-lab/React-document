@@ -820,7 +820,178 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 * 在`render`里通過`this.handleEvent.bind(this, "參數")`這樣的方式來傳遞 通過event傳遞
 * 做一個子組件，在父組件中定義方法，通過props傳遞到子組件中，然後在子組件件通過this.props.method來調用
 
+##  九、表单
 
+在React裡，HTML表單元素的工作方式和其他的DOM元素有些不同，這是因為表單元素通常會保持一些內部的狀態。例如這個純HTML表單只接受一個名稱：
+
+
+
+```text
+<form>
+  <label>
+    名字:
+    <input type="text" name="name" />
+  </label>
+  <input type="submit" value="提交" />
+</form>
+```
+
+此表單具有樣式的HTML表單行為，即在用戶提交表單後瀏覽到新頁面。如果你在React中執行相同的代碼，它仍然有效。但大多數情況下，使用JavaScript函數可以很方便的處理表單的 提交，同時還可以訪問用戶填充的表單數據。實現這種效果的標準方式是使用“替代組件”。
+
+###  1、受控组件
+
+在HTML中，表單元素（如，和）通常自己維護狀態，並根據用戶輸入進行更新。而在React中，變量狀態（可變狀態）通常保存在組件的狀態屬性中，並且只能通過 使用`setState（）`來更新。
+
+我們可以把兩個結合起來，使React的狀態成為“唯一資料源”。渲染表單的React組件還控制著用戶輸入過程中表單發生的操作。被React以這種方式控制取值的表單輸入元素就 叫做“預設組件”。
+
+例如，如果我們想讓前一個示例在提交時打印出名稱，我們可以將表單寫入為選擇性組件：
+
+```text
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('提交的名字: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          名字:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="提交" />
+      </form>
+    );
+  }
+}
+```
+
+由於在表單元素上設置了 `value` 屬性，因此顯示的值將始終為 this.state.value，這使得 React 的 state 成為唯一數據源。由於 `handlechange` 在每次按鍵時都會執行並更新 React 的 state，因此顯示的值將隨著用戶輸入而更新。
+
+對於受控組件來說，輸入的值始終由 React 的 state 驅動。你也可以將 value 傳遞給其他 UI 元素，或者通過其他事件處理函數重置，但這意味著你需要編寫更多的代碼。
+
+###  2、textarea 標籤
+
+在 HTML 中, `<textarea>` 元素通過其子元素定義其文本:
+
+```text
+<textarea>
+  你好， 這是在 text area 裡的文本
+</textarea>
+```
+
+而在 React 中，`<textarea>` 使用 `value` 屬性代替。這樣，可以使得使用 `<textarea>` 的表單和使用單行 input 的表單非常類似：
+
+```text
+class EssayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '請撰写一篇你喜欢的DOM 元素的文章.'
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('提交的文章: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          文章:
+          <textarea value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="提交" />
+      </form>
+    );
+  }
+}
+```
+
+請注意，`this.state.value` 初始化於構造函數中，因此文本區域默認有初值。
+
+###  3、select 標籤
+
+在 HTML 中， 創建下拉列表標籤。例如，如下 HTML 創建了水果相關的下拉列表：
+
+```text
+<select>
+  <option value="grapefruit">葡萄柚</option>
+  <option value="lime">酸橙</option>
+  <option selected value="coconut">椰子</option>
+  <option value="mango">芒果</option>
+</select>
+```
+
+
+
+請注意，由於 `selected` 屬性的緣故，椰子選項默認被選中。 React 並不會使用 `selected` 屬性，而是在根 `select` 標籤上使用 `value` 屬性。這在受控組件中更便捷，因為您只需要在根標籤中更新它。例如：
+
+```text
+class FlavorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut'};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('你喜欢的风味是: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          选择你喜欢的风味:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">葡萄柚</option>
+            <option value="lime">酸橙</option>
+            <option value="coconut">椰子</option>
+            <option value="mango">芒果</option>
+          </select>
+        </label>
+        <input type="submit" value="提交" />
+      </form>
+    );
+  }
+}
+```
+
+你也可以將陣列傳遞到 `value` 屬性中，以支持在 `select` 標籤中选择多个选项：
+
+```text
+<select multiple={true} value={['B', 'C']}>
+```
 
 
 
