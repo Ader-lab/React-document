@@ -972,7 +972,7 @@ class FlavorForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          选择你喜欢的风味:
+          選擇你喜歡的水果:
           <select value={this.state.value} onChange={this.handleChange}>
             <option value="grapefruit">葡萄柚</option>
             <option value="lime">酸橙</option>
@@ -987,7 +987,7 @@ class FlavorForm extends React.Component {
 }
 ```
 
-你也可以將陣列傳遞到 `value` 屬性中，以支持在 `select` 標籤中选择多个选项：
+你也可以將陣列傳遞到 `value` 屬性中，以支持在 `select` 標籤中選擇多個選項：
 
 ```text
 <select multiple={true} value={['B', 'C']}>
