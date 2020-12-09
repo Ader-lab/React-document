@@ -807,8 +807,8 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 
 * 直接在render裡寫行内的箭頭函式\(不推薦\)
 * 在组件内使用箭頭函式定義一個方法\(推薦\)
-* 直接在组件内定義一个非箭頭函式的方法，然后在render裡直接使用`onClick={this.handleClick.bind(this)}`\(不推薦\)
-* 直接在组件内定义一个非箭頭函式的方法，然后在constructor里bind\(this\)\(推薦\)
+* 直接在组件内定義一个非箭頭函式的方法，然后在render裡直接使用`onClick={this.handleClick.bind(this)}`\(不推薦，因為bind每執行一次會創建一次function，影響效能\)
+* 直接在组件内定義一个非箭頭函式的方法，然后在constructor里bind\(this\)\(推薦，只綁定一次\)
 
 ### 3、Event 物件
 
