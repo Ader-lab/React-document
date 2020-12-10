@@ -881,7 +881,7 @@ class NameForm extends React.Component {
 
 對於受控組件來說，輸入的值始終由 React 的 state 驅動。你也可以將 value 傳遞給其他 UI 元素，或者通過其他事件處理函數重置，但這意味著你需要編寫更多的代碼。
 
-###  2、textarea 標籤
+####  \(1\) textarea 標籤
 
 在 HTML 中, `<textarea>` 元素通過其子元素定義其文本:
 
@@ -898,7 +898,7 @@ class EssayForm extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      value: '請撰写一篇你喜欢的DOM 元素的文章.'
+      value: '請撰寫一篇你喜歡的DOM 元素的文章。'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -930,16 +930,16 @@ class EssayForm extends React.Component {
 
 請注意，`this.state.value` 初始化於構造函數中，因此文本區域默認有初值。
 
-### 3、select 標籤
+#### \(2\) select 標籤
 
 在 HTML 中， 創建下拉列表標籤。例如，如下 HTML 創建了水果相關的下拉列表：
 
 ```text
 <select>
-  <option value="grapefruit">葡萄柚</option>
-  <option value="lime">酸橙</option>
-  <option selected value="coconut">椰子</option>
-  <option value="mango">芒果</option>
+  <option value="1">葡萄柚</option>
+  <option value="2">柳橙</option>
+  <option selected value="3">椰子</option>
+  <option value="4">芒果</option>
 </select>
 ```
 
@@ -949,7 +949,7 @@ class EssayForm extends React.Component {
 class FlavorForm extends React.Component {
   constructor(props) {
     super();
-    this.state = {value: 'coconut'};
+    this.state = {value: '3'};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -970,10 +970,10 @@ class FlavorForm extends React.Component {
         <label>
           選擇你喜歡的水果:
           <select value={this.state.value} onChange={this.handleChange}>
-            <option value="grapefruit">葡萄柚</option>
-            <option value="lime">酸橙</option>
-            <option value="coconut">椰子</option>
-            <option value="mango">芒果</option>
+            <option value="1">葡萄柚</option>
+            <option value="2">柳橙</option>
+            <option value="3">椰子</option>
+            <option value="4">芒果</option>
           </select>
         </label>
         <input type="submit" value="提交" />
@@ -1039,7 +1039,7 @@ class MulFlavorForm extends React.Component {
 export default MulFlavorForm;
 ```
 
-### 4、處理多個輸入
+#### \(3\) 處理多個輸入
 
 當需要處理多個 `input` 元素時，我們可以給每個元素添加 `name` 屬性，並讓處理函數根據 `event.target.name` 的值選擇要執行的操作。
 
@@ -1094,7 +1094,7 @@ class Reservation extends React.Component {
 export default Reservation;
 ```
 
-注意我們使用了 ES6 的 [computed property name](https://snh90100.medium.com/es6-%E8%AA%9E%E6%B3%95-computed-property-names-%E5%8B%95%E6%85%8B%E8%A8%88%E7%AE%97%E5%B1%AC%E6%80%A7%E5%90%8D-%E4%BB%8B%E7%B4%B9-883ca789cda6) 語法來更新與輸入中的 name 相對應的 state key：
+注意這裡使用 ES6 的 [computed property name](https://snh90100.medium.com/es6-%E8%AA%9E%E6%B3%95-computed-property-names-%E5%8B%95%E6%85%8B%E8%A8%88%E7%AE%97%E5%B1%AC%E6%80%A7%E5%90%8D-%E4%BB%8B%E7%B4%B9-883ca789cda6) 語法來更新與輸入中的 name 相對應的 state key：
 
 ```text
 this.setState({
