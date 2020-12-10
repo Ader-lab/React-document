@@ -847,7 +847,7 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 ```text
 class NameForm extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {value: ''};
 
     this.handleChange = this.handleChange.bind(this);
@@ -887,7 +887,7 @@ class NameForm extends React.Component {
 
 ```text
 <textarea>
-  你好， 這是在 text area 裡的文本
+  你好，這是在 text area 裡的文本
 </textarea>
 ```
 
@@ -896,7 +896,7 @@ class NameForm extends React.Component {
 ```text
 class EssayForm extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       value: '請撰写一篇你喜欢的DOM 元素的文章.'
     };
@@ -948,7 +948,7 @@ class EssayForm extends React.Component {
 ```text
 class FlavorForm extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {value: 'coconut'};
 
     this.handleChange = this.handleChange.bind(this);
@@ -992,7 +992,7 @@ class FlavorForm extends React.Component {
 ```text
 class MulFlavorForm extends React.Component {
 	constructor(props) {
-		super(props);
+		super();
 		this.state = {
 			value: "2",
 			arr: [],
@@ -1039,5 +1039,73 @@ class MulFlavorForm extends React.Component {
 export default MulFlavorForm;
 ```
 
+### 4、處理多個輸入
 
+當需要處理多個 `input` 元素時，我們可以給每個元素添加 `name` 屬性，並讓處理函數根據 `event.target.name` 的值選擇要執行的操作。
+
+```text
+class Reservation extends React.Component {
+	constructor(props) {
+	  super();
+	  this.state = {
+			isGoing: true,
+			numberOfGuests: 2
+	  };
+  
+	  this.handleInputChange = this.handleInputChange.bind(this);
+	}
+	handleInputChange(event) {
+	  const target = event.target;
+	  const value = target.type === 'checkbox' ? target.checked : target.value;
+	  const name = target.name;
+	
+	  this.setState({
+			[name]: value
+	  });
+	}
+	handleClick = () =>{
+		console.log(this.state);
+	}
+	render() {
+	  return (
+		<form>
+		  <label>
+			参与:
+			<input
+				name="isGoing"
+			  type="checkbox"
+			  checked={this.state.isGoing}
+			  onChange={this.handleInputChange} />
+		  </label>
+		  <br />
+		  <label>
+			來賓人數:
+			<input
+			  name="numberOfGuests"
+			  type="number"
+			  value={this.state.numberOfGuests}
+			  onChange={this.handleInputChange} />
+		  </label>
+		  <input type="button" onClick={this.handleClick} value="click"/>
+		</form>
+	  );
+	}
+}
+export default Reservation;
+```
+
+注意我們使用了 ES6 的 [computed property name](https://snh90100.medium.com/es6-%E8%AA%9E%E6%B3%95-computed-property-names-%E5%8B%95%E6%85%8B%E8%A8%88%E7%AE%97%E5%B1%AC%E6%80%A7%E5%90%8D-%E4%BB%8B%E7%B4%B9-883ca789cda6) 語法來更新與輸入中的 name 相對應的 state key：
+
+```text
+this.setState({
+  [name]: value
+});
+```
+
+這和下面的 ES5 程式碼是一樣的：
+
+```text
+var partialState = {};
+partialState[name] = value;this.setState(partialState);
+```
 
