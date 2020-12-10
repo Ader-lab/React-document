@@ -960,7 +960,7 @@ class FlavorForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('你喜欢的风味是: ' + this.state.value);
+    alert('你喜歡是: ' + this.state.value);
     event.preventDefault();
   }
 
@@ -987,6 +987,56 @@ class FlavorForm extends React.Component {
 
 ```text
 <select multiple={true} value={['B', 'C']}>
+```
+
+```text
+class MulFlavorForm extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			value: "2",
+			arr: [],
+			options: [
+				{ value: "1", label: "葡萄柚" },
+				{ value: "2", label: "柳橙" },
+				{ value: "3", label: "椰子" },
+				{ value: "4", label: "芒果" }
+			]
+		};
+	  	this.handleChange = this.handleChange.bind(this);
+	}
+	handleChange(e){
+		// 
+		let idx = this.state.arr.findIndex(item=>{
+			return item === e.target.value
+		})
+		if (idx >= 0) {
+			// 
+			this.state.arr.splice(idx,1);
+		} else {
+			// 
+			this.state.arr.push(e.target.value);
+		}
+		let arr = this.state.arr;
+		this.setState({arr});
+	}
+	handleBtn = () => {
+		console.log(this.state.arr);
+	}
+	render() {
+	  	return (
+			<div>
+				<select multiple={true} value={this.state.arr} onChange={this.handleChange}>
+					{this.state.options.map((item,index) => {
+					return <option value={item.value} key={index}>{item.label}</option>;
+				})}
+				</select>
+				<button onClick={this.handleBtn}>click</button>
+			</div>
+		);
+	}
+}
+export default MulFlavorForm;
 ```
 
 
