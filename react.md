@@ -1209,5 +1209,15 @@ ReactDOM.render(
 >       * index.js/YourComponentTwo.js
 >     * index.js 用於倒出組件
 
-注意：一個組件只做一件事情 ，所以TodoList和TodoItem要做成兩個組件
+注意：一個組件只做一件事情 ，所以TodoList和TodoItem要做成兩個組件。
+
+##  十一、组件的生命周期
+
+React中組件也有[生命週期](https://zh-hant.reactjs.org/docs/react-component.html)，也就是說也有很多鉤子函數供我們使用，組件的生命週期，我們會分為四個階段，初始化，運行中，銷毀，錯誤處理（16.3版本之後）
+
+常見的有以下:
+
+![](.gitbook/assets/sheng-ming-zhou-qi-new%20%281%29.png)
+
+
 
