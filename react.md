@@ -820,7 +820,7 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 * 在`render`里通過`this.handleEvent.bind(this, "參數")`這樣的方式來傳遞 通過event傳遞
 * 做一個子組件，在父組件中定義方法，通過props傳遞到子組件中，然後在子組件件通過this.props.method來調用
 
-##  九、表单
+##  九、表單
 
 在React裡，HTML表單元素的工作方式和其他的DOM元素有些不同，這是因為表單元素通常會保持一些內部的狀態。例如這個純HTML表單只接受一個名稱：
 
@@ -1193,4 +1193,21 @@ ReactDOM.render(
 	document.getElementById('root')
 );
 ```
+
+##  十、TodoList
+
+組件化開發React todolist， 項目開發中的組件的基本目錄結構基本上是這樣的：
+
+> /your-project
+>
+> * src
+>   * …
+>   * components
+>     * YourComponentOne
+>       * index.js/YourComponentOne.js
+>     * YourComponentTwo
+>       * index.js/YourComponentTwo.js
+>     * index.js 用於倒出組件
+
+注意：一個組件只做一件事情 ，所以TodoList和TodoItem要做成兩個組件
 
