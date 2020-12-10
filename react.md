@@ -1219,5 +1219,64 @@ React中組件也有[生命週期](https://zh-hant.reactjs.org/docs/react-compon
 
 ![](.gitbook/assets/sheng-ming-zhou-qi-new%20%281%29.png)
 
+###  補充---&gt; PureComponent
+
+`PureComponnet`裡如果接收到的新屬性或者是更改後的狀態和原屬性、原狀態相同的話，就不會去重新render了 在裡面也可以使用`shouldComponentUpdate`，而且。是否重新渲染以`shouldComponentUpdate`的返回值為最終的決定因素。
+
+```text
+import React, { PureComponent } from 'react'
+
+class YourComponent extends PureComponent {
+  ……
+}
+```
+
+```text
+import React,{ PureComponent } from 'react';
+import ReactDOM from 'react-dom';
+class Parent extends React.Component {
+	constructor(props) {
+		super();
+		this.state = {
+			name: "James"
+		}
+	}
+	render() {
+		console.log("render");
+		return (
+			<div>
+				 {/* 改成name="Mike" 當傳入的值固定不變那繼承PureComponent的將不會重新render */}
+				<Child name={this.state.name}/>
+			</div>
+		)
+	}
+	componentDidMount() {
+		setTimeout(() => {
+			this.setState({
+				name: "Mike"
+			})
+		},2000)
+	}
+}
+class Child extends PureComponent {
+	constructor(props) {
+	  super();
+	}
+	render() {
+		console.log("Child-render");
+		return (
+		  <>
+		  	{this.props.name}
+		  </>
+	  );
+	}
+}
+  
+ReactDOM.render(
+	<Parent />,
+	document.getElementById('root')
+);
+```
+
 
 
