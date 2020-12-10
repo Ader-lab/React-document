@@ -834,15 +834,15 @@ React的高效依賴於所謂的 Virtual-DOM，盡量不碰 DOM。對於列表�
 </form>
 ```
 
-此表單具有樣式的HTML表單行為，即在用戶提交表單後瀏覽到新頁面。如果你在React中執行相同的代碼，它仍然有效。但大多數情況下，使用JavaScript函數可以很方便的處理表單的 提交，同時還可以訪問用戶填充的表單數據。實現這種效果的標準方式是使用“替代組件”。
+此表單具有樣式的HTML表單行為，即在用戶提交表單後瀏覽到新頁面。如果你在React中執行相同的代碼，它仍然有效。但大多數情況下，使用JavaScript函數可以很方便的處理表單的提交，同時還可以訪問用戶填充的表單資料。實現這種效果的標準方式是使用"受控組件"
 
 ###  1、受控组件
 
 在HTML中，表單元素（如，和）通常自己維護狀態，並根據用戶輸入進行更新。而在React中，變量狀態（可變狀態）通常保存在組件的狀態屬性中，並且只能通過 使用`setState（）`來更新。
 
-我們可以把兩個結合起來，使React的狀態成為“唯一資料源”。渲染表單的React組件還控制著用戶輸入過程中表單發生的操作。被React以這種方式控制取值的表單輸入元素就 叫做“預設組件”。
+我們可以把兩個結合起來，使React的狀態成為“唯一資料源”。渲染表單的React組件還控制著用戶輸入過程中表單發生的操作。被React以這種方式控制取值的表單輸入元素就 叫做“”。
 
-例如，如果我們想讓前一個示例在提交時打印出名稱，我們可以將表單寫入為選擇性組件：
+例如，如果我們想讓前一個示例在提交時打印出名稱，我們可以將表單寫入為受控組件：
 
 ```text
 class NameForm extends React.Component {
@@ -877,7 +877,7 @@ class NameForm extends React.Component {
 }
 ```
 
-由於在表單元素上設置了 `value` 屬性，因此顯示的值將始終為 this.state.value，這使得 React 的 state 成為唯一數據源。由於 `handlechange` 在每次按鍵時都會執行並更新 React 的 state，因此顯示的值將隨著用戶輸入而更新。
+由於在表單元素上設置了 `value` 屬性，因此顯示的值將始終為 this.state.value，這使得 React 的 state 成為唯一資料源。由於 `handlechange` 在每次按鍵時都會執行並更新 React 的 state，因此顯示的值將隨著用戶輸入而更新。
 
 對於受控組件來說，輸入的值始終由 React 的 state 驅動。你也可以將 value 傳遞給其他 UI 元素，或者通過其他事件處理函數重置，但這意味著你需要編寫更多的代碼。
 
@@ -1106,6 +1106,91 @@ this.setState({
 
 ```text
 var partialState = {};
-partialState[name] = value;this.setState(partialState);
+partialState[name] = value;
+this.setState(partialState);
+```
+
+####  \(4\) 受控输入空值
+
+在受控組件上指定 value 的 prop 會阻止用戶更改輸入。如果你指定了 value，但輸入仍可編輯，則可能是你意外地將value 設置為 undefined 或 null。
+
+###  2、非受控组件
+
+在大多數情況下，我們推薦使用 "受控組件" 來處理表單資料。在一個受控組件中，表單資料是由 React 組件來管理的。另一種替代方案是使用非受控組件，這時表單資料將交由 DOM 節點來處理。
+
+要編寫一個非受控組件，而不是為每個狀態更新都編寫數據處理函數，你可以 使用 ref 來從 DOM 節點中獲取表單資料。
+
+在 React 渲染生命週期時，表單元素上的 value 將會覆蓋 DOM 節點中的值。在非受控組件中，你經常希望 React 能賦予組件一個初始值，但是不去控制後續的更新。在這種情況下, 你可以指定一個 defaultValue 屬性，而不是 value。在一個組件已經掛載之後去更新 defaultValue 屬性的值，不會造成 DOM 上值的任何更新。
+
+例如，下面的代碼使用非受控組件接受一個表單的值:
+
+```text
+export default class NameForm extends React.Component {
+	constructor(props) {
+		super();
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.input = React.createRef();
+	}
+	handleSubmit(event) {
+		alert('A name was submitted: ' + this.input.current.value);
+		event.preventDefault();
+	}
+	render() {
+		return (
+			<form onSubmit={this.handleSubmit}>
+				<label>
+					Name:
+					<input type="text" ref={this.input} defaultValue="James"/>
+				</label>
+				<input type="submit" value="Submit" />
+			</form>
+		);
+	}
+}
+```
+
+因為非受控組件將真實數據儲存在 DOM 節點中，所以在使用非受控組件時，有時候反而更容易同時集成 React 和非 React 代碼。如果你不介意代碼美觀性，並且希望快速編寫代碼，使用非受控組件往往可以減少你的代碼量。否則，你應該使用受控組件。
+
+####  \(1\) 文件输入
+
+在 HTML 中，`<input type="file">` 可以讓使用者選擇一個或多個文件上傳到服務器，或者通過使用 [File API](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications) 進行操作。
+
+在 React 中，`<input type="file">` 始終是一個非受控組件，因為它的值只能由使用者設置，而不能通過代碼控制。
+
+您應該使用 File API 與文件進行交互。下面的例子顯示瞭如何創建一個 [DOM 節點的 ref](https://zh-hant.reactjs.org/docs/refs-and-the-dom.html) 從而在提交表單時獲取文件的信息。
+
+```text
+class FileInput extends React.Component {
+	constructor(props) {
+	  super();
+	  this.handleSubmit = this.handleSubmit.bind(this);
+	  this.fileInput = React.createRef();
+	}
+	handleSubmit(event) {
+	  event.preventDefault();
+	  alert(
+		// 利用「current」來取得 DOM 節點
+		`Selected file - ${this.fileInput.current.files[0].name}`
+	  );
+	}
+  
+	render() {
+	  return (
+		<form onSubmit={this.handleSubmit}>
+		  <label>
+			Upload file:
+			<input type="file" ref={this.fileInput} />
+		  </label>
+		  <br />
+		  <button type="submit">Submit</button>
+		</form>
+	  );
+	}
+}
+  
+ReactDOM.render(
+	<FileInput />,
+	document.getElementById('root')
+);
 ```
 
