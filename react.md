@@ -418,7 +418,7 @@ ReactDOM.render(
 )
 ```
 
-React.createElement 會構建一個 JavaScript 物件來描述你 HTML 結構的信息，包括標籤名、屬性、還有子元素等, 語法為
+React.createElement 會構建一個 JavaScript 物件來描述你 HTML 結構的信息，包括標籤名、屬性、還有子元素等，語法為:
 
 ```text
 React.createElement(
